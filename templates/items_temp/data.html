@@ -1,0 +1,96 @@
+{% extends "items_temp/base.html" %}
+{% block sliding %}{% endblock sliding %}
+{% block body %}
+{% load static %}
+
+<div id="message"></div>
+<div class="container">
+    <!-- <div class="column"> -->
+    <div class="d-flex align-items-center justify-content-center">
+        {% for data in out_data %}
+        <div class="col-md-4">
+            <div class="card">
+                <div id="carousel{{data.id}}" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner">
+                        {% for data_out in data.productimage_set.all %}
+                            <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                                <img src="{{ data_out.image.url }}" class="d-block w-100" alt="Product image {{ forloop.counter }}">
+                            </div>
+                        {% endfor %}
+                    </div>
+
+                    <!-- Carousel Controls -->
+                    <a class="carousel-control-prev" href="#carousel{{data.id}}" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carousel{{data.id}}" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">
+                            <a href="{% url "product" data.id %}" class="text-dark" style="text-decoration:none">{{data.name}}</a>
+                            <p class="card-text">
+                                ₹{{data.sell_price}}
+                                <s>₹{{data.mrp}}</s>
+                            </p>
+                    </h5>
+                </div>
+            {% comment %} <a href="{% url "add_to_cart" data.id %}"> {% endcomment %}
+                <button class="btn btn-primary btn-block addToCart" id="hima" item_id="{{data.id}}" type="submit">Add to Cart</button>
+            {% comment %} </a> {% endcomment %}
+            <br>
+            <a href="{% url "add_to_wishlist" data.id %}">
+                <button class="btn btn-primary btn-block">Add to Wishlist</button>
+            </a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<style>
+    /* Set a fixed height for the card and limit image size */
+    .product-card {
+        width: 300px; /* Fixed width for all cards */
+        height: 450px; /* Fixed height for all cards */
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+    .card-img-top {
+        max-height: 500px; /* Limit image height */
+        object-fit: ; /* Crop image to fit */
+    }
+    .carousel-item img {
+        max-height: 200px;
+        object-fit: contain;
+    }
+    .card-body {
+        flex-grow: 1; /* Allow description to grow within limits */
+        overflow: hidden; /* Hide overflow if text is too long */
+    }
+</style>
+
+
+<!-- </div> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+    $(".addToCart").click(function(e){
+        e.preventDefault();
+        var cat_id;
+        cat_id = $(this).attr("item_id");
+        $.ajax(
+        {
+            type:"GET",
+            url:"/cart/add_to_cart/",
+            data:{
+                item_id: cat_id
+            }
+        });
+    })
+</script>
+
+{% endblock body %}

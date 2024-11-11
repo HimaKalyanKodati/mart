@@ -1,0 +1,75 @@
+{% extends "items_temp/base.html" %}
+{% block sliding %}{% endblock sliding %}
+{% block body %}
+{% load static %}
+
+
+<div class="container">
+    <!-- <div class="column"> -->
+    <div class="d-flex align-items-center justify-content-center">
+        <div class="col-md-4">
+            <div class="card">
+                {% comment %} {% for out_data in out.productimage_set.all %}
+                    <img src="{{out_data.image.url}}" alt="" sizes="" srcset="" width='400' height='400'>
+                {% endfor %} {% endcomment %}
+                <!-- Bootstrap 4 Carousel for Product Images -->
+                <div id="productCarousel" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner">
+                        {% for out_data in out.productimage_set.all %}
+                            <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                                <img src="{{ out_data.image.url }}" class="d-block w-100" alt="Product image {{ forloop.counter }}">
+                            </div>
+                        {% endfor %}
+                    </div>
+
+                    <!-- Carousel Controls -->
+                    <a class="carousel-control-prev" href="#productCarousel" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#productCarousel" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">
+                            <p>{{out.name}}</p>
+                            <p class="card-text">
+                                ₹{{out.sell_price}}
+                                <s>₹{{out.mrp}}</s>
+                            </p>
+                            <p>{{out.description}}</p>
+                    </h5>
+                </div>
+            <button class="btn btn-primary btn-block">Add to Cart</button>
+            <button class="btn btn-primary btn-block">Add to Wishlist</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- </div> -->
+{% endblock body %}
+
+
+
+<!-- Bootstrap 4 Carousel for Product Images -->
+<div id="productCarousel" class="carousel slide" data-ride="carousel">
+    <div class="carousel-inner">
+        {% for image in product.images.all %}
+            <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                <img src="{{ image.image.url }}" class="d-block w-100" alt="Product image {{ forloop.counter }}">
+            </div>
+        {% endfor %}
+    </div>
+
+    <!-- Carousel Controls -->
+    <a class="carousel-control-prev" href="#productCarousel" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#productCarousel" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+    </a>
+</div>

@@ -1,0 +1,10 @@
+<form action="" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{product_form.as_table}}
+    <h5>image:</h5>
+    {{productimage_form.management_form}}
+    {% for image in productimage_form %}
+        {{image.as_table}}
+    {% endfor %}
+    <button type="submit">Submit</button>
+</form>

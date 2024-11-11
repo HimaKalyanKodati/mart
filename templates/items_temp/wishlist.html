@@ -1,0 +1,32 @@
+{% extends "items_temp/base.html" %}
+
+{% block sliding %}{% endblock sliding %}
+
+
+{% block body %}
+
+<div class="container">
+    <div class="row">
+        {% for data in wishlist %}
+      <div class="col-sm-2">
+        <!-- Content -->
+        <a href="{% url "product" data.product_id%}" class="text-dark" style="text-decoration:none">{{data.product}}</a>
+      </div>
+      <div class="col-sm-8" align="center">
+        <!-- Content -->
+        {{data.price}}
+      </div>
+      <div class="col-sm-2">
+        <!-- Content -->
+        <a href="{% url "add_to_cart" data.product_id %}">
+          <button type="button" class="btn btn-success">Add to Cart</button>
+        </a>
+        <a href="{% url "delete_wishlist" data.id %}">
+          <button type="button" class="btn btn-danger">Remove</button>
+        </a>
+      </div>
+      {% endfor %}
+    </div>
+</div>
+  
+{% endblock body %}

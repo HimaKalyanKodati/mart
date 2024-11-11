@@ -1,0 +1,5 @@
+items/__pycache__/
+items/migrations/
+mart/__pycache__/
+db.sqlite3
+media/product/images/

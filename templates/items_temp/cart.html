@@ -1,0 +1,61 @@
+{% extends "items_temp/base.html" %}
+
+{% block sliding %}{% endblock sliding %}
+
+
+{% block body %}
+
+<div class="container">
+    <div class="row">
+        {% for data in cart_item %}
+        {% comment %} {% for out_data in data.cartitems_set.all %} {% endcomment %}
+      <div class="col-sm-2">
+        <!-- Content -->
+         <a href="{% url "product" data.id%}" class="text-dark" style="text-decoration:none">{{data.product}}</a>
+        
+      </div>
+      <div class="col-sm-8" align="center">
+        <!-- Content -->
+        ₹{{data.price}} * {{data.quantity}} = ₹{{data.get_total_price}}
+      </div>
+      <div class="col-sm-2">
+        <!-- Content -->
+        <a href="{% url "delete_cart" data.id %}">
+          <button type="button" class="btn btn-danger">Delete</button>
+        </a>
+      </div>  
+      {% comment %} {% endfor %} {% endcomment %}
+      {% endfor %}
+      <div class="container">
+        <div class="row">
+          <div class="col-3 offset-6">
+            <!-- Content -->
+            ₹{{total_amt}}
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    {/* document.onload = itemPrice() {
+        // let amt = 0;
+        // amt = price * quantity
+        // console.log("hima:", amt)
+        // document.getElementsByClassName("total_price") = amt;
+        alert("HIMA");
+      } */}
+
+{/* window.onload = function itemPrice() {
+  alert("HIMA");
+  const values = document.getElementById("hima");
+  let price = values.getAttribute("price");
+  let quantity = values.getAttribute("quantity");
+  let amt = price * quantity;
+  document.getElementById("hima") = amt;
+}; */}
+</script>
+  
+
+
+{% endblock body %}
