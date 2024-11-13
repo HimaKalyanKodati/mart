@@ -37,11 +37,13 @@
    python manage.py makemigrations
    python manage.py migrate
 
-4. Start the server:
+4. Create directories media/product/images/default/ in Base directory for storing product images and default image. Save any default image with name as 'default.jpg' in default directory.
+
+5. Start the server:
    ```bash
    python manage.py runserver
 
-5. Access the app in your browser at http://127.0.0.1:8000/.
+6. Access the app in your browser at http://127.0.0.1:8000/.
 
 ### Usage
 - **Homepage**: Browse featured products or navigate directly to category pages.
